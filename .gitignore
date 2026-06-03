@@ -1,0 +1,8 @@
+# Variables de entorno (contiene secretos/API keys)
+.env
+
+# Dependencias (si se usan en el futuro)
+node_modules/
+
+# MCP Stack (contiene tokens, IPs, secrets)
+MCP_STACK.md
