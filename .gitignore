@@ -1,8 +1,108 @@
-# Variables de entorno (contiene secretos/API keys)
+# =============================================================================
+# ROOT .gitignore — Projects root
+# =============================================================================
+
+# ── Browser Profile History (contains cached API keys & secrets) ─────────────
+# AdsPower browser profiles store browsing history with embedded tokens
+**/User/History/
+**/profiles/*/User/History/
+**/main_script/profiles/*/User/History/
+
+# ── Secrets & Environment ────────────────────────────────────────────────────
 .env
+.env.*
+!.env.example
+*.key
+*.pem
+*.secret
 
-# Dependencias (si se usan en el futuro)
+# ── Backup credentials (contains encryption passwords) ───────────────────────
+VPS_BACKUP_README.txt
+BACKUP_PASSWORD_README.txt
+*_password.txt
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+venv_local/
+env/
+*.egg-info/
+
+# ── Node ─────────────────────────────────────────────────────────────────────
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# MCP Stack (contiene tokens, IPs, secrets)
-MCP_STACK.md
+# ── IDE ──────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Build artifacts ──────────────────────────────────────────────────────────
+build/
+dist/
+*.egg
+
+# ── Unrelated projects (moved out of monorepo) ───────────────────────────────
+first-shot-website/
+debuging/
+Antigravity-AdsPower Login Helper/
+
+# ── Other projects on disk (not part of this repo) ───────────────────────────
+AG prompts/
+AI website/
+Ads power config/
+Archive/
+Claude code proxy /
+Experiments/
+Indeed_Script/
+Info and research /
+MCP debug/
+MCP generation/
+MCP servers/
+Migration to vps/
+N8N Workflows/
+Self_host_cal/
+Site scan project/
+Upwork/
+VPS: root@45.55.90.156 (DigitalOcean)
+Voice-AI/
+Voicemail_drops/
+alibaba_mcp/
+bajio-relocate/
+claude proxy project/
+cold-linkedin-outreach/
+cold_social_media_outreach/
+diallux-ai-complete/
+diallux-turbo-assistant/
+diallux_sitio_español/
+julio/
+keyhound.sh
+mcp/
+n8n_automation_vps/
+proposal_template/
+video_strategy/
+voiceai/
+vps_backup_script.sh
+vps_debug/
+LinkedIN_job_hunter/
+Personal/
+Quota watcher/
+dataforseo-mcp/
