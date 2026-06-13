@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Madurez Digital | Diallux AI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    brand: {
+                        base: '#1a1814',
+                        text: '#F5F5F0',
+                        accent: '#30D5C8',
+                        frame: '#C19A6B',
+                        dark: '#0f172a',
+                    }
+                }
+            }
+        }
+    }
+</script>
+<style>
+  :root {
+    --bg-color: #0b0f19;
+    --card-bg: #161f30;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #24324d;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .diallux-container {
+    max-width: 700px;
+    width: 100%;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-text {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  /* Nombre de marca centrado arriba de H1 */
+  .brand-logo {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .header-text h1 {
+    margin: 0 0 12px 0;
+    font-size: 1.9rem;
+    color: var(--text-main);
+    font-weight: 700;
+  }
+
+  .header-text p {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  /* --- SECCIÓN DE CAPTURA DE LEAD --- */
+  .lead-capture-container {
+    margin-bottom: 10px;
+  }
+
+  .lead-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.06);
+  }
+
+  .section-divider {
+    margin: 35px 0;
+    border-top: 1px dashed var(--border-color);
+  }
+
+  .question-group {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .question-group:last-of-type {
+    border-bottom: none;
+  }
+
+  .question-text {
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    color: var(--text-main);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .options label {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-main);
+  }
+
+  .options label:hover {
+    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.08);
+  }
+
+  .options input[type="radio"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  .btn-submit {
+    display: block;
+    width: 100%;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-top: 25px;
+  }
+
+  .btn-submit:hover {
+    background: var(--primary-hover);
+  }
+
+  /* --- SECCIÓN DE RESULTADOS --- */
+  #results-section {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  .result-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+  .badge-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+  .badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+
+  .result-title {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: var(--text-main);
+    font-weight: 700;
+  }
+
+  .result-desc {
+    color: var(--text-muted);
+    margin-bottom: 35px;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: #ffffff;
+    color: var(--bg-color);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    border: 1px solid #ffffff;
+  }
+
+  .cta-button:hover {
+    background: transparent;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body class="bg-brand-base text-brand-text font-sans antialiased">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="fixed w-full z-50 bg-brand-base/90 backdrop-blur-md shadow-sm border-b border-brand-frame/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-microchip text-brand-600 text-2xl"></i>
+                    <span class="font-bold text-2xl tracking-tight text-brand-900">Diallux<span class="text-brand-600">AI</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#soluciones" class="text-brand-text hover:text-brand-accent transition font-medium">Soluciones</a>
+                    <a href="index.html#planes" class="text-brand-text hover:text-brand-accent transition font-medium">Planes</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="https://wa.me/524776981340" target="_blank" class="bg-brand-accent text-brand-base px-6 py-2.5 rounded-lg font-bold hover:bg-white transition shadow-lg shadow-brand-accent/30 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Auditoría Gratuita
+                    </a>
+                </div>
+                <label for="mobile-menu-toggle" class="md:hidden flex items-center cursor-pointer p-2 text-brand-text hover:text-brand-accent transition">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </label>
+            </div>
+        </div>
+        <input type="checkbox" id="mobile-menu-toggle" class="hidden peer">
+        <div class="md:hidden max-h-0 peer-checked:max-h-80 overflow-hidden transition-all duration-300 ease-in-out bg-brand-base/95 backdrop-blur-md border-t border-brand-frame/20">
+            <div class="px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+                <a href="index.html#soluciones" class="block text-brand-text hover:text-brand-accent transition font-medium text-lg" onclick="document.getElementById('mobile-menu-toggle').checked=false">Soluciones</a>
+                <a href="index.html#planes" class="block text-brand-text hover:text-brand-accent transition font-medium text-lg" onclick="document.getElementById('mobile-menu-toggle').checked=false">Planes</a>
+                <a href="https://wa.me/524776981340" target="_blank" class="block text-center bg-brand-accent text-brand-base px-6 py-3 rounded-lg font-bold hover:bg-white transition shadow-lg shadow-brand-accent/30 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Auditoría Gratuita
+                </a>
+            </div>
+        </div>
+    </nav>
+
+<section class="pt-32 pb-20 md:pt-40 md:pb-28 px-4">
+<div class="diallux-container">
+  <!-- Encabezado -->
+  <div id="intro-section" class="header-text">
+    <span class="brand-logo">DIALLUX AI</span>
+    <h1>¿Tu empresa está lista para la IA?</h1>
+    <p>Descubre en 2 minutos el nivel de madurez digital de tu negocio y el siguiente paso para su automatización.</p>
+  </div>
+
+  <!-- Formulario -->
+  <form id="assessment-form">
+    
+    <!-- SECCIÓN: RECOPILACIÓN DE DATOS DEL PROSPECTO -->
+    <div class="lead-capture-container">
+      <h2 class="lead-section-title">Información de Registro</h2>
+      
+      <div class="input-group">
+        <label for="user-name">Nombre Completo:</label>
+        <input type="text" id="user-name" name="nombre" class="input-field" placeholder="Ej. Juan Pérez" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="user-company">Nombre de la Empresa:</label>
+        <input type="text" id="user-company" name="empresa" class="input-field" placeholder="Ej. Industrias Bajío" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="user-whatsapp">WhatsApp de Contacto:</label>
+        <input type="tel" id="user-whatsapp" name="whatsapp" class="input-field" placeholder="Ej. +52 477 123 4567" required>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    
+    <!-- P1 -->
+    <div class="question-group">
+      <div class="question-text">1. ¿Tienes identificadas y documentadas las tareas repetitivas que más tiempo consumen en tu negocio?</div>
+      <div class="options">
+        <label><input type="radio" name="q1" value="2" required> Sí, tenemos manuales o checklists claros.</label>
+        <label><input type="radio" name="q1" value="1"> Algunas, pero dependen de la memoria del equipo.</label>
+        <label><input type="radio" name="q1" value="0"> No, operamos apagando fuegos en el día a día.</label>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="question-group">
+      <div class="question-text">2. Si un empleado clave falta mañana, ¿el área operativa puede seguir funcionando sin problemas?</div>
+      <div class="options">
+        <label><input type="radio" name="q2" value="2" required> Sí, el proceso es independiente de la persona.</label>
+        <label><input type="radio" name="q2" value="1"> A medias, habría retrasos considerables.</label>
+        <label><input type="radio" name="q2" value="0"> No, todo se detiene o requiere mi intervención directa.</label>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="question-group">
+      <div class="question-text">3. ¿Dónde se almacena la información de tus clientes y ventas?</div>
+      <div class="options">
+        <label><input type="radio" name="q3" value="2" required> En un CRM o software especializado en la nube.</label>
+        <label><input type="radio" name="q3" value="1"> En hojas de Excel de uso compartido (Drive/OneDrive).</label>
+        <label><input type="radio" name="q3" value="0"> En libretas, o disperso en el WhatsApp de los vendedores.</label>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="question-group">
+      <div class="question-text">4. ¿Cuál es la actitud de tu equipo frente a nuevas herramientas tecnológicas?</div>
+      <div class="options">
+        <label><input type="radio" name="q4" value="2" required> Abierta, adoptan la tecnología para facilitar su trabajo.</label>
+        <label><input type="radio" name="q4" value="1"> Neutral, la usan si es obligatorio, pero con algo de fricción.</label>
+        <label><input type="radio" name="q4" value="0"> Hay resistencia o miedo de que la tecnología reemplace sus empleos.</label>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="question-group">
+      <div class="question-text">5. ¿Qué buscas resolver exactamente con la Inteligencia Artificial?</div>
+      <div class="options">
+        <label><input type="radio" name="q5" value="2" required> Tengo un problema medible (ej. mejorar tiempos de respuesta un 30%).</label>
+        <label><input type="radio" name="q5" value="1"> Quiero modernizar la empresa, pero no tengo métricas exactas.</label>
+        <label><input type="radio" name="q5" value="0"> Solo quiero implementarla porque es la tendencia actual.</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit">Generar Diagnóstico Inmediato</button>
+  </form>
+
+  <!-- Resultados (Oculto inicialmente) -->
+  <div id="results-section">
+    <div id="result-badge" class="result-badge badge-warning">Calculando...</div>
+    <h2 id="result-title" class="result-title">Tu resultado</h2>
+    <p id="result-desc" class="result-desc">Descripción del resultado irá aquí.</p>
+    
+    <!-- Call to Action Integrado -->
+    <a href="https://cal.com/los-5-mas-buscados-frc4fc" class="cta-button">Agendar sesión estratégica con Diallux AI</a>
+  </div>
+
+</div>
+</div>
+</section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-microchip text-brand-500 text-xl"></i>
+                    <span class="font-bold text-xl text-white">Diallux<span class="text-brand-500">AI</span></span>
+                </div>
+                <p class="text-sm">Transformando la operación B2B en el Bajío mediante Inteligencia Artificial.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Contacto Directo</h4>
+                <p class="text-sm mb-2"><i class="fa-brands fa-whatsapp text-green-500 mr-2"></i> <a href="https://wa.me/524776981340" target="_blank" class="hover:text-white transition">477 698 1340</a></p>
+                <p class="text-sm"><i class="fa-solid fa-location-dot text-gray-500 mr-2"></i> León, Guanajuato, México.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Legal</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="aviso-de-privacidad.html" class="hover:text-white transition">Aviso de Privacidad</a></li>
+                    <li><a href="#" class="hover:text-white transition">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WIDGET FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/524776981340" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition hover:scale-110 z-50 group flex items-center justify-center">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <span class="absolute right-16 bg-gray-900 text-white text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition whitespace-nowrap pointer-events-none shadow-xl max-w-[200px] sm:max-w-none">
+            ¿Dudas rápidas? Habla con un especialista
+            <span class="absolute top-1/2 -right-1 -translate-y-1/2 border-y-4 border-y-transparent border-l-4 border-l-gray-900"></span>
+        </span>
+    </a>
+
+<!-- --- LÓGICA JAVASCRIPT CON AUTOMATIZACIÓN DE GOOGLE SHEETS --- -->
+<script>
+  // URL de Web App de producción integrada directamente
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwSvV7E2T25Ttkrub2NG0cCZisGWdaViHP3NIS_-nr9o3U7Skw32JrQ1YT8pi60ypBL/exec";
+
+  document.getElementById('assessment-form').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+
+    // 1. Recolectar valores de las preguntas
+    const formData = new FormData(this);
+    let totalScore = 0;
+    
+    // Filtramos solo las respuestas del quiz para calcular el puntaje
+    for (let [key, value] of formData.entries()) {
+      if (key.startsWith('q')) {
+        totalScore += parseInt(value);
+      }
+    }
+
+    // 2. Determinar el perfil basado en la matriz (Puntaje Máximo: 10)
+    let badgeClass, badgeText, title, desc;
+
+    if (totalScore <= 4) {
+      badgeClass = 'badge-danger';
+      badgeText = 'Fase de Estructuración';
+      title = 'Requiere cimientos operativos antes de la IA';
+      desc = 'Instalar tecnología sobre procesos no definidos solo automatiza el caos. Tu enfoque inmediato debe ser mapear tus procesos clave y migrar tus datos a herramientas digitales básicas antes de invertir en IA avanzada.';
+    } else if (totalScore <= 7) {
+      badgeClass = 'badge-warning';
+      badgeText = 'Fase de Automatización Básica';
+      title = 'Listo para automatizar flujos de trabajo';
+      desc = 'Tienes las bases operativas. El siguiente paso es implementar integraciones simples (ej. conectar tu correo con tu Excel o crear bots de respuesta fija) para liberar horas de tu equipo antes de saltar a la IA cognitiva.';
+    } else {
+      badgeClass = 'badge-success';
+      badgeText = 'Fase de Aceleración con IA';
+      title = '¡Tu empresa está lista para la Inteligencia Artificial!';
+      desc = 'Cuentas con la estructura, los datos y la cultura adecuada. Estás en la posición ideal para implementar pilotos de IA generativa para atención al cliente, análisis de datos o recuperación de ingresos.';
+    }
+
+    // 3. Capturar datos de contacto
+    const nombreUsuario = document.getElementById('user-name').value;
+    const empresaUsuario = document.getElementById('user-company').value;
+    const whatsappUsuario = document.getElementById('user-whatsapp').value;
+
+    // 4. ENVÍO AUTOMÁTICO A GOOGLE SHEETS (Background Fetch)
+    if (WEB_APP_URL) {
+      const payload = {
+        nombre: nombreUsuario,
+        empresa: empresaUsuario,
+        whatsapp: whatsappUsuario,
+        puntaje: totalScore,
+        fase: badgeText,
+        diagnostico: title
+      };
+
+      fetch(WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(() => console.log('Métrica guardada automáticamente en Google Sheets.'))
+      .catch(err => console.error('Error de red al guardar datos:', err));
+    }
+
+    // 5. Actualizar el DOM con los resultados
+    const badgeEl = document.getElementById('result-badge');
+    badgeEl.className = 'result-badge ' + badgeClass;
+    badgeEl.textContent = badgeText;
+    document.getElementById('result-title').textContent = title;
+    document.getElementById('result-desc').textContent = desc;
+
+    // 6. Transición visual: Ocultar form, mostrar resultados
+    this.style.display = 'none';
+    document.getElementById('intro-section').style.display = 'none';
+    document.getElementById('results-section').style.display = 'block';
+    
+    // Scroll suave hacia arriba
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
