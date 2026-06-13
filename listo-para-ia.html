@@ -55,10 +55,16 @@
     max-width: 700px;
     width: 100%;
     background: var(--card-bg);
-    padding: 40px;
+    padding: 24px 20px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 640px) {
+    .diallux-container {
+      padding: 40px;
+    }
   }
 
   .header-text {
@@ -79,9 +85,15 @@
 
   .header-text h1 {
     margin: 0 0 12px 0;
-    font-size: 1.9rem;
+    font-size: 1.5rem;
     color: var(--text-main);
     font-weight: 700;
+  }
+
+  @media (min-width: 640px) {
+    .header-text h1 {
+      font-size: 1.9rem;
+    }
   }
 
   .header-text p {
@@ -301,7 +313,7 @@
         </div>
     </nav>
 
-<section class="pt-32 pb-20 md:pt-40 md:pb-28 px-4">
+<section class="pt-32 pb-20 md:pt-40 md:pb-28 px-4 flex justify-center items-start min-h-screen">
 <div class="diallux-container">
   <!-- Encabezado -->
   <div id="intro-section" class="header-text">
@@ -398,7 +410,6 @@
     <a href="https://cal.com/los-5-mas-buscados-frc4fc" class="cta-button">Agendar sesión estratégica con Diallux AI</a>
   </div>
 
-</div>
 </div>
 </section>
 
